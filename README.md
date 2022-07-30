@@ -193,5 +193,7 @@ Thefore, based on the external validation of the ElasticNet method, the best hyp
 | Genetic Algorithm  |  _Pending Value_ |
 | Simulated Annealing  | _Pending Value_  |
 | Partical Swarm Optimization | _Pending Value_  |
+Thefore, based on the external validation of the Suppor Vector Regression method, the best hyperparameters, as determined by the _blank_ method are C ≈ 1.0008 and epsilon ≈ 0.0049.
 
-
+## The Ridge and Lasso Extension
+I chose to extend this project by using the above grid-search methods to attempt to replicate the results I got from project 2. This means identifying the optimal alpha hyperparameter for the Lasso and Ridge regressions methods. T
