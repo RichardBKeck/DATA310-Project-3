@@ -70,7 +70,7 @@ varbound=np.array([[0,3],[0,1]])
 model=ga(function=objective_ENet,dimension=2,variable_type='real',variable_boundaries=varbound)
 model.run()
 ```
-This resulted in the optimal hyperparameters of alpha ≈ 1.0017 and l1_ratio ≈ 0.0048. At this point, the Mean Squared Error ≈ 0.2578.
+This resulted in the optimal hyperparameters of alpha ≈ 0.4161 and l1_ratio ≈ 0.1373. At this point, the Mean Squared Error ≈ 0.2598.
 
 Similar to the objective functions, the Support Vector Regressor method was tested on the Genetic Algorithm in a very similar way.
 ```Python
@@ -164,7 +164,7 @@ options = {'c1': 0.25, 'c2': 0.25, 'w': 0.5}
 optimizer = ps.single.GlobalBestPSO(n_particles=25, dimensions=2, options=options, bounds=bounds)
 cost, pos = optimizer.optimize(objective_pso_ENet, iters=1000)
 ```
-This resulted in the optimal hyperparameters of alpha ≈ 0.4001 and l1_ratio ≈ 0.1431. At this point, the Mean Squared Error ≈ 0.2598.
+This resulted in the optimal hyperparameters of alpha ≈ 0.4008 and l1_ratio ≈ 0.1431. At this point, the Mean Squared Error ≈ 0.2598.
 
 The code for Support Vector Regression is:
 ```Python
@@ -176,3 +176,22 @@ optimizer = ps.single.GlobalBestPSO(n_particles=25, dimensions=2, options=option
 cost, pos = optimizer.optimize(objective_pso_SVR, iters=1000)
 ```
 This resulted in the optimal hyperparameters of C ≈ 1.6682 and epsilon ≈ 0.000036. At this point, the Mean Squared Error ≈ 0.3820.
+
+## Identifying the best model
+### ElasticNet
+The results from the three tests of ElasticNet are summarized on the following datatable:
+| Model  | Mean Squared Error |
+| ------------- | ------------- |
+| Genetic Algorithm  | 0.2598  |
+| Simulated Annealing  | 0.2578 |
+| Partical Swarm Optimization | 0.2598 |
+Thefore, based on the external validation of the ElasticNet method, the best hyperparameters, as determined by the Simulated Annealing method are alpha ≈ 1.0008 and l1_ratio ≈ 0.0049.
+
+### Support Vector Regression
+| Model  | Mean Squared Error |
+| ------------- | ------------- |
+| Genetic Algorithm  |  _Pending Value_ |
+| Simulated Annealing  | _Pending Value_  |
+| Partical Swarm Optimization | _Pending Value_  |
+
+
