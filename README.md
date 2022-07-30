@@ -15,6 +15,8 @@ X = Xf[:,1:]
 y = Xf[:,0]
 ```
 
+## Genetic Algorithm and Simulated Annealing
+### Functions
 From there I wrote two objective functions. They looked similar to each other, with the only difference being in the model line. 
 
 This block is the objective function for the Elastic Net method:
@@ -60,3 +62,23 @@ def objective_SVR(h): # h is a two column matrix
     PE.append(MSE(ytest,model.predict(Xtest_s)))
   return np.mean(PE)
 ```
+
+### Genetic Algorithm Testing and Results
+After validating that thes objective functions were able to execute without errors, I turned my attention to executing the model. I used the following block of code. The array of h values was based on the work on ElasticNet and Support Vector Regression I did for project #2.
+```Python
+varbound=np.array([[0,3],[0,1]])
+model=ga(function=objective_ENet,dimension=2,variable_type='real',variable_boundaries=varbound)
+model.run()
+```
+This resulted in the optimal hyperparameters of alpha = 1.0017 and l1_ratio = 0.0048. At this point, the Mean Squared Error = 0.2578.
+
+Similar to the objective functions, the Support Vector Regressor method was tested on the Genetic Algorithm in a very similar way.
+```Python
+varbound=np.array([[0,3],[0,10]])
+model=ga(function=objective_SVR,dimension=2,variable_type='real',variable_boundaries=varbound)
+model.run()
+```
+This resulted in the optimal hyperparameters of alpha = 2.4401 and l1_ratio = 0.0019. At this point, the Mean Squared Error = 0.3799.
+
+### 
+
