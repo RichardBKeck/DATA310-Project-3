@@ -17,7 +17,7 @@ y = Xf[:,0]
 
 ## Genetic Algorithm and Simulated Annealing
 ### Functions
-From there I wrote two objective functions. They looked similar to each other, with the only difference being in the model line. 
+From there I wrote two objective functions. They looked similar to each other, with the only difference being in the model line.  One thing worth noting is that I chose to run the support vector regression with the linear kernel. I tested both the default 'rbf' kernel and the 'linear' kernel. I selected linear because it consistently produced a lower mean squared error.
 
 This block is the objective function for the Elastic Net method:
 ```Python
@@ -49,7 +49,7 @@ def objective_SVR(h): # h is a two column matrix
   output = [] 
   Reg_Param = h[0] # column matrix 
   e = h[1]
-  model = SVR(C=Reg_Param,epsilon=e,max_iter=5000)
+  model = SVR(C=Reg_Param,kernel = 'linear', epsilon=e,max_iter=5000)
   PE = []
   for idxtrain, idxtest in kf.split(X):
     Xtrain = X[idxtrain]
@@ -136,7 +136,7 @@ def objective_pso_SVR(h):
   for i in range(h.shape[0]):
     Reg_Param = h[i,0] # column matrix 
     e = h[i,1]
-    model = SVR(C=Reg_Param,epsilon=e,max_iter=5000)
+    model = SVR(C=Reg_Param,kernel = 'linear', epsilon=e,max_iter=5000)
     PE = []
     for idxtrain, idxtest in kf.split(X):
       Xtrain = X[idxtrain]
@@ -295,5 +295,70 @@ def objective_pso_Las(h): # h is a two column matrix
 ```
 
 ## Lasso Testing and Results
+### Genetic Algorithm
+Using the following code, and the objective function defined above, I used the genetic algorithm to identify the optimal alpha paramater for the Lasso regression method
+```Python
+varbound=np.array([[0,10]])
+model=ga(function=objective_Las,dimension=1,variable_type='real',variable_boundaries=varbound)
+model.run()
+```
+This approach identified a MSE of 10.6418 at alpha = 0.0017.
+
+### Simulated Annealing
+Using the following code, and the objective function defined above, I used simulated annealing to identify the optimal alpha paramater for the Lasso regression method:
+```Python
+lw = [0]
+up = [100]
+ret_Las = dual_annealing(objective_Las, bounds=list(zip(lw, up)),maxiter=10000,maxfun=10000)
+
+ret_Las
+```
+This approach identified a MSE of 10.6187 at alpha = 0.000045.
+
+### Partical Swarm Optimization
+Using the following code, and the objective function defined above, I used simulated annealing to identify the optimal alpha paramater for the Lasso regression method:
+```Python
+max = np.array([100])
+min = np.array([0])
+bounds = (min, max)
+options = {'c1': 0.25, 'c2': 0.25, 'w': 0.5}
+optimizer = ps.single.GlobalBestPSO(n_particles=25, dimensions=1, options=options, bounds=bounds)
+cost, pos = optimizer.optimize(objective_pso_Las, iters=1000)
+```
+This approach identified a MSE of 11.3561 at alpha = 30.4.
 
 ## Ridge Testing and Results
+### Genetic Algorithm
+Using the following code, and the objective function defined above, I used the genetic algorithm to identify the optimal alpha paramater for the Lasso regression method
+```Python
+varbound=np.array([[0,10]])
+model=ga(function=objective_Rid,dimension=1,variable_type='real',variable_boundaries=varbound)
+model.run()
+```
+This approach identified a MSE of 10.6682 at alpha = 0.0003.
+
+### Simulated Annealing
+Using the following code, and the objective function defined above, I used simulated annealing to identify the optimal alpha paramater for the Lasso regression method:
+```Python
+lw = [0]
+up = [100]
+ret_Rid = dual_annealing(objective_Rid, bounds=list(zip(lw, up)),maxiter=10000,maxfun=10000)
+
+ret_Rid
+```
+This approach identified a MSE of 10.6682 at alpha = 0.000006.
+
+### Partical Swarm Optimization
+Using the following code, and the objective function defined above, I used simulated annealing to identify the optimal alpha paramater for the Lasso regression method:
+```Python
+max = np.array([100])
+min = np.array([0])
+bounds = (min, max)
+options = {'c1': 0.25, 'c2': 0.25, 'w': 0.5}
+optimizer = ps.single.GlobalBestPSO(n_particles=25, dimensions=1, options=options, bounds=bounds)
+cost, pos = optimizer.optimize(objective_pso_Rid, iters=1000)
+```
+This approach identified a MSE of 10.6682 at alpha = 0.0004.
+
+## Ridge and Lasso Discussion
+This data suggests that this particular application of grid search algorithms was ineffective given the fact that the mean squared error ended up being incredibly high for these models.
