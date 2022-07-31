@@ -198,4 +198,102 @@ Thefore, based on the external validation of the ElasticNet method, the best hyp
 Thefore, based on the external validation of the Suppor Vector Regression method, the best hyperparameters, as determined by the Genetic Algorithm method are C ≈ 1.80854 and epsilon ≈ 0.13022.
 
 ## The Ridge and Lasso Extension
-I chose to extend this project by using the above grid-search methods to attempt to replicate the results I got from project 2. This means identifying the optimal alpha hyperparameter for the Lasso and Ridge regressions methods. T
+I chose to extend this project by using the above grid-search methods to attempt to replicate the results I got from project 2. This means identifying the optimal alpha hyperparameter for the Lasso and Ridge regressions methods. This process began by retrofitting my objective funtions such that they work find only one hyperparameter. They can be seen below:
+
+## Objective Functions: Ridge and Lasso
+### Ridge Regression
+Ridge Objective Function:
+```Python
+def objective_Rid(h):
+  kf = KFold(n_splits=10,shuffle=True,random_state=123)
+  scale = StandardScaler()
+  output = [] 
+  a = h # column matrix 
+  model = Ridge(alpha= a, fit_intercept = False, max_iter=5000)
+  PE = []
+  for idxtrain, idxtest in kf.split(X):
+    Xtrain = X[idxtrain]
+    ytrain = y[idxtrain]
+    Xtrain_s = scale.fit_transform(Xtrain)
+    Xtest = X[idxtest]
+    ytest = y[idxtest]
+    Xtest_s = scale.transform(Xtest)
+    model.fit(Xtrain_s,ytrain)
+    PE.append(MSE(ytest,model.predict(Xtest_s)))
+  return np.mean(PE)
+```
+Ridge Objective Function (Partical Swarm Optimization Version):
+
+```Python
+def objective_pso_Rid(h):
+  kf = KFold(n_splits=10,shuffle=True,random_state=123)
+  scale = StandardScaler()
+  output = [] 
+  for i in range(h.shape[0]):
+    a = h[i,0]
+    model = Ridge(alpha= a, fit_intercept = False,max_iter=5000)
+    PE = []
+    for idxtrain, idxtest in kf.split(X):
+      Xtrain = X[idxtrain]
+      ytrain = y[idxtrain]
+      Xtest = X[idxtest]
+      ytest = y[idxtest]
+
+      Xtrain_s = scale.fit_transform(Xtrain)
+      Xtest_s = scale.transform(Xtest)
+      
+      model.fit(Xtrain_s,ytrain)
+      PE.append(MSE(ytest,model.predict(Xtest_s)))
+    output.append(np.mean(PE))
+  return output
+```
+### Lasso Regression
+Ridge Objective Function:
+```Python
+def objective_Las(h):
+  kf = KFold(n_splits=10,shuffle=True,random_state=123)
+  scale = StandardScaler()
+  output = [] 
+  a = h
+  model = Las(alpha= a, fit_intercept = False, max_iter=5000)
+  PE = []
+  for idxtrain, idxtest in kf.split(X):
+    Xtrain = X[idxtrain]
+    ytrain = y[idxtrain]
+    Xtrain_s = scale.fit_transform(Xtrain)
+    Xtest = X[idxtest]
+    ytest = y[idxtest]
+    Xtest_s = scale.transform(Xtest)
+    model.fit(Xtrain_s,ytrain)
+    PE.append(MSE(ytest,model.predict(Xtest_s)))
+  return np.mean(PE)
+```
+Ridge Objective Function (Partical Swarm Optimization Version):
+
+```Python
+def objective_pso_Las(h): # h is a two column matrix
+  kf = KFold(n_splits=10,shuffle=True,random_state=123)
+  scale = StandardScaler()
+  output = [] 
+  for i in range(h.shape[0]):
+    a = h[i,0] # column matrix 
+    model = Lasso(alpha= a, fit_intercept = False,max_iter=5000)
+    PE = []
+    for idxtrain, idxtest in kf.split(X):
+      Xtrain = X[idxtrain]
+      ytrain = y[idxtrain]
+      Xtest = X[idxtest]
+      ytest = y[idxtest]
+
+      Xtrain_s = scale.fit_transform(Xtrain)
+      Xtest_s = scale.transform(Xtest)
+      
+      model.fit(Xtrain_s,ytrain)
+      PE.append(MSE(ytest,model.predict(Xtest_s)))
+    output.append(np.mean(PE))
+  return output
+```
+
+## Lasso Testing and Results
+
+## Ridge Testing and Results
