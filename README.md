@@ -70,7 +70,7 @@ varbound=np.array([[0,3],[0,1]])
 model=ga(function=objective_ENet,dimension=2,variable_type='real',variable_boundaries=varbound)
 model.run()
 ```
-This resulted in the optimal hyperparameters of alpha ≈ 0.4161 and l1_ratio ≈ 0.1373. At this point, the Mean Squared Error ≈ 0.2598.
+This resulted in the optimal hyperparameters of alpha ≈ 0.98704 and l1_ratio ≈ 0.00508. At this point, the Mean Squared Error ≈ 0.25785.
 
 Similar to the objective functions, the Support Vector Regressor method was tested on the Genetic Algorithm in a very similar way.
 ```Python
@@ -78,7 +78,7 @@ varbound=np.array([[0,3],[0,10]])
 model=ga(function=objective_SVR,dimension=2,variable_type='real',variable_boundaries=varbound)
 model.run()
 ```
-This resulted in the optimal hyperparameters of C ≈ 2.4401 and epsilon ≈ 0.0019. At this point, the Mean Squared Error ≈ 0.3799.
+This resulted in the optimal hyperparameters of C ≈ 1.80854 and epsilon ≈ 0.13022. At this point, the Mean Squared Error ≈ 0.0.268588.
 
 ### Simulated Annealing Testing and Results
 
@@ -91,7 +91,7 @@ ret_ENet = dual_annealing(objective_ENet, bounds=list(zip(lw, up)),maxiter=10000
 
 ret_ENet
 ```
-This resulted in the optimal hyperparameters of alpha ≈ 1.0008 and l1_ratio ≈ 0.0049. At this point, the Mean Squared Error ≈ 0.2578.
+This resulted in the optimal hyperparameters of alpha ≈ 1.0001 and l1_ratio ≈ 0.0049. At this point, the Mean Squared Error ≈ 0.25782.
 
 The Support Vector Algorithm was tested in a very similar way.
 ```Python
@@ -99,7 +99,7 @@ lw = [0.000001,0]
 up = [10,10]
 ret_SVR = dual_annealing(objective_SVR, bounds=list(zip(lw, up)),maxiter=10000,maxfun=10000)
 ```
-This resulted in the optimal hyperparameters of C ≈ 2.4234 and epsilon ≈ 0.0000016. At this point, the Mean Squared Error ≈ 0.3795.
+This resulted in the optimal hyperparameters of C ≈ 3.14810 and epsilon ≈ 0.13079. At this point, the Mean Squared Error ≈ 0.268591.
 
 ## Partical Swarm
 Partical Swarm Optimization relies on a different form of optimization function. It can be seen below:
@@ -164,7 +164,7 @@ options = {'c1': 0.25, 'c2': 0.25, 'w': 0.5}
 optimizer = ps.single.GlobalBestPSO(n_particles=25, dimensions=2, options=options, bounds=bounds)
 cost, pos = optimizer.optimize(objective_pso_ENet, iters=1000)
 ```
-This resulted in the optimal hyperparameters of alpha ≈ 0.4008 and l1_ratio ≈ 0.1431. At this point, the Mean Squared Error ≈ 0.2598.
+This resulted in the optimal hyperparameters of alpha ≈ 0.4008 and l1_ratio ≈ 0.1431. At this point, the Mean Squared Error ≈ 0.25978.
 
 The code for Support Vector Regression is:
 ```Python
@@ -175,25 +175,27 @@ options = {'c1': 0.25, 'c2': 0.25, 'w': 0.5}
 optimizer = ps.single.GlobalBestPSO(n_particles=25, dimensions=2, options=options, bounds=bounds)
 cost, pos = optimizer.optimize(objective_pso_SVR, iters=1000)
 ```
-This resulted in the optimal hyperparameters of C ≈ 1.6682 and epsilon ≈ 0.000036. At this point, the Mean Squared Error ≈ 0.3820.
+This resulted in the optimal hyperparameters of C ≈ 0.70352 and epsilon ≈ 0.12682. At this point, the Mean Squared Error ≈ 0.268590.
 
 ## Identifying the best model
 ### ElasticNet
 The results from the three tests of ElasticNet are summarized on the following datatable:
 | Model  | Mean Squared Error |
 | ------------- | ------------- |
-| Genetic Algorithm  | 0.2598  |
-| Simulated Annealing  | 0.2578 |
-| Partical Swarm Optimization | 0.2598 |
-Thefore, based on the external validation of the ElasticNet method, the best hyperparameters, as determined by the Simulated Annealing method are alpha ≈ 1.0008 and l1_ratio ≈ 0.0049.
+| Genetic Algorithm  | 0.25785  |
+| Simulated Annealing  | 0.25782 |
+| Partical Swarm Optimization | 0.25978 |
+
+Thefore, based on the external validation of the ElasticNet method, the best hyperparameters, as determined by the Simulated Annealing method are alpha ≈ 0.98704 and l1_ratio ≈ 0.00508.
 
 ### Support Vector Regression
 | Model  | Mean Squared Error |
 | ------------- | ------------- |
-| Genetic Algorithm  |  _Pending Value_ |
-| Simulated Annealing  | _Pending Value_  |
-| Partical Swarm Optimization | _Pending Value_  |
-Thefore, based on the external validation of the Suppor Vector Regression method, the best hyperparameters, as determined by the _blank_ method are C ≈ 1.0008 and epsilon ≈ 0.0049.
+| Genetic Algorithm  |  0.268588 |
+| Simulated Annealing  | 0.268591  |
+| Partical Swarm Optimization | 0.268590 |
+
+Thefore, based on the external validation of the Suppor Vector Regression method, the best hyperparameters, as determined by the Genetic Algorithm method are C ≈ 1.80854 and epsilon ≈ 0.13022.
 
 ## The Ridge and Lasso Extension
 I chose to extend this project by using the above grid-search methods to attempt to replicate the results I got from project 2. This means identifying the optimal alpha hyperparameter for the Lasso and Ridge regressions methods. T
