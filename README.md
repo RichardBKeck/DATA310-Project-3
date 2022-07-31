@@ -179,7 +179,7 @@ This resulted in the optimal hyperparameters of C ≈ 0.70352 and epsilon ≈ 0.
 
 ## Identifying the best model
 ### ElasticNet
-The results from the three tests of ElasticNet are summarized on the following datatable:
+The results from the three tests of ElasticNet are summarized on the following data table:
 | Model  | Mean Squared Error |
 | ------------- | ------------- |
 | Genetic Algorithm  | 0.25785  |
@@ -189,6 +189,7 @@ The results from the three tests of ElasticNet are summarized on the following d
 Thefore, based on the external validation of the ElasticNet method, the best hyperparameters, as determined by the Simulated Annealing method are alpha ≈ 0.98704 and l1_ratio ≈ 0.00508.
 
 ### Support Vector Regression
+The results from the three tests of ElasticNet are summarized on the following data table:
 | Model  | Mean Squared Error |
 | ------------- | ------------- |
 | Genetic Algorithm  |  0.268588 |
