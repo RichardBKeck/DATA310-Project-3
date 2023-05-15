@@ -78,7 +78,7 @@ varbound=np.array([[0,3],[0,10]])
 model=ga(function=objective_SVR,dimension=2,variable_type='real',variable_boundaries=varbound)
 model.run()
 ```
-This resulted in the optimal hyperparameters of C ≈ 1.80854 and epsilon ≈ 0.13022. At this point, the Mean Squared Error ≈ 0.0.268588.
+This resulted in the optimal hyperparameters of C ≈ 1.80854 and epsilon ≈ 0.13022. At this point, the Mean Squared Error ≈ 0.268588.
 
 ### Simulated Annealing Testing and Results
 
@@ -101,8 +101,8 @@ ret_SVR = dual_annealing(objective_SVR, bounds=list(zip(lw, up)),maxiter=10000,m
 ```
 This resulted in the optimal hyperparameters of C ≈ 3.14810 and epsilon ≈ 0.13079. At this point, the Mean Squared Error ≈ 0.268591.
 
-## Partical Swarm
-Partical Swarm Optimization relies on a different form of optimization function. It can be seen below:
+## Particle Swarm
+Particle Swarm Optimization relies on a different form of optimization function. It can be seen below:
 
 ```Python
 def objective_pso_ENet(h):
@@ -184,7 +184,7 @@ The results from the three tests of ElasticNet are summarized on the following d
 | ------------- | ------------- |
 | Genetic Algorithm  | 0.25785  |
 | Simulated Annealing  | 0.25782 |
-| Partical Swarm Optimization | 0.25978 |
+| Particle Swarm Optimization | 0.25978 |
 
 Thefore, based on the external validation of the ElasticNet method, the best hyperparameters, as determined by the Simulated Annealing method are alpha ≈ 0.98704 and l1_ratio ≈ 0.00508.
 
@@ -194,7 +194,7 @@ The results from the three tests of ElasticNet are summarized on the following d
 | ------------- | ------------- |
 | Genetic Algorithm  |  0.268588 |
 | Simulated Annealing  | 0.268591  |
-| Partical Swarm Optimization | 0.268590 |
+| Particle Swarm Optimization | 0.268590 |
 
 Thefore, based on the external validation of the Suppor Vector Regression method, the best hyperparameters, as determined by the Genetic Algorithm method are C ≈ 1.80854 and epsilon ≈ 0.13022.
 
@@ -223,7 +223,7 @@ def objective_Rid(h):
     PE.append(MSE(ytest,model.predict(Xtest_s)))
   return np.mean(PE)
 ```
-Ridge Objective Function (Partical Swarm Optimization Version):
+Ridge Objective Function (Particle Swarm Optimization Version):
 
 ```Python
 def objective_pso_Rid(h):
@@ -269,7 +269,7 @@ def objective_Las(h):
     PE.append(MSE(ytest,model.predict(Xtest_s)))
   return np.mean(PE)
 ```
-Ridge Objective Function (Partical Swarm Optimization Version):
+Ridge Objective Function (Particle Swarm Optimization Version):
 
 ```Python
 def objective_pso_Las(h): # h is a two column matrix
@@ -316,7 +316,7 @@ ret_Las
 ```
 This approach identified a MSE of 10.6187 at alpha = 0.000045.
 
-### Partical Swarm Optimization
+### Particle Swarm Optimization
 Using the following code, and the objective function defined above, I used simulated annealing to identify the optimal alpha paramater for the Lasso regression method:
 ```Python
 max = np.array([100])
@@ -349,7 +349,7 @@ ret_Rid
 ```
 This approach identified a MSE of 10.6682 at alpha = 0.000006.
 
-### Partical Swarm Optimization
+### Particle Swarm Optimization
 Using the following code, and the objective function defined above, I used simulated annealing to identify the optimal alpha paramater for the Lasso regression method:
 ```Python
 max = np.array([100])
